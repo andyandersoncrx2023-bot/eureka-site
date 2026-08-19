@@ -11,8 +11,8 @@ website/
 ├─ js/main.js            # 少量交互（赞助二维码占位降级）
 ├─ img/
 │  ├─ icon.png           # 站点 Logo / 图标（黑白沉思者）
-│  ├─ sponsor-wechat.png # 【待替换】微信赞赏二维码
-│  └─ sponsor-alipay.png # 【待替换】支付宝赞赏二维码
+│  ├─ pic-wechat.png     # 【待替换】微信赞赏二维码
+│  └─ pic-alipay.png     # 【待替换】支付宝赞赏二维码
 └─ downloads/
    └─ Eureka Setup 1.0.0.exe   # 安装包（98.9 MB）
 ```
@@ -48,6 +48,7 @@ img/shots/why-5.png   05 细节之处见用心
 
 ## 赞助二维码
 
-1. 把微信赞赏码保存为 `img/sponsor-wechat.png`、支付宝赞赏码保存为 `img/sponsor-alipay.png`；
-2. 二维码未上传前，页面会自动显示“待开发者上传二维码”的占位框，不影响其他内容；
-3. 页面文案已说明软件永久免费、赞助自愿。
+1. 把微信赞赏码保存为 `img/pic-wechat.png`、支付宝赞赏码保存为 `img/pic-alipay.png`；
+2. 二维码未上传前，页面会自动显示占位框，不影响其他内容；
+3. 页面文案已说明软件永久免费、赞助自愿；
+4. 注意：图片必须是真正的 PNG/JPG 文件（不要只改后缀名），否则部分浏览器无法显示。
