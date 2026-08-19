@@ -47,74 +47,57 @@
   window.openLightbox = openLightbox;
   window.closeLightbox = closeLightbox;
 
-  /* ========== 图片缺失时显示占位框 ========== */
-  function placeholderFor(img, icon, text, codeName) {
+  /* ========== 图片占位：加载成功→可放大；失败→占位框 ==========
+     只用图片自身事件驱动，不用探测 Image，避免竞态导致已加载图片被替换 */
+  function setupImage(img, placeholderNode) {
     var shown = false;
-    var show = function () {
+    var showPlaceholder = function () {
       if (shown) return;
       shown = true;
-      var box = document.createElement('div');
-      box.className = 'shot-placeholder';
-      box.innerHTML =
-        '<div class="ph-icon">' + icon + '</div>' +
-        text +
-        (codeName ? '<div><small>把图片保存为 <code>' + codeName + '</code> 即可显示</small></div>' : '');
-      img.replaceWith(box);
+      img.replaceWith(placeholderNode);
     };
-    img.addEventListener('error', show);
     img.addEventListener('load', function () { bindZoom(img); });
-    var src = img.getAttribute('src');
-    if (src) {
-      var probe = new Image();
-      probe.onload = function () {
-        if (!img.complete || img.naturalWidth === 0) show();
-        else bindZoom(img);
-      };
-      probe.onerror = show;
-      probe.src = src;
+    img.addEventListener('error', showPlaceholder);
+    // 脚本运行时图片可能已完成加载/失败（缓存等），补一次检查
+    if (img.complete) {
+      if (img.naturalWidth > 0) bindZoom(img);
+      else showPlaceholder();
     }
+  }
+
+  function makePlaceholder(icon, text, codeName) {
+    var box = document.createElement('div');
+    box.className = 'shot-placeholder';
+    box.innerHTML =
+      '<div class="ph-icon">' + icon + '</div>' +
+      text +
+      (codeName ? '<div><small>把图片保存为 <code>' + codeName + '</code> 即可显示</small></div>' : '');
+    return box;
   }
 
   // 为什么选择：界面截图位（img/shots/why-N.png）
   document.querySelectorAll('.why-shot img').forEach(function (img) {
-    placeholderFor(
+    setupImage(
       img,
-      '🖼️',
-      '界面截图占位',
-      'img/shots/' + (img.getAttribute('data-name') || 'why-N.png')
+      makePlaceholder(
+        '🖼️',
+        '界面截图占位',
+        'img/shots/' + (img.getAttribute('data-name') || 'why-N.png')
+      )
     );
   });
 
   // 赞助：微信 / 支付宝赞赏码（img/sponsor-*.png），未上传时显示占位；点击可放大
   document.querySelectorAll('.qr-img').forEach(function (img) {
     var ph = document.createElement('div');
-    ph.className = 'qr-placeholder';
+    ph.className = 'shot-placeholder';
     ph.style.cssText =
       'width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;' +
       'gap:6px;color:var(--text-soft);font-size:13px;text-align:center;padding:12px;';
     ph.innerHTML =
       '<div>📱 ' + (img.getAttribute('data-placeholder') || '赞赏码') + '</div>' +
       '<div><small>待开发者上传二维码</small></div>';
-    var shown = false;
-    img.addEventListener('error', function () {
-      if (shown) return;
-      shown = true;
-      img.replaceWith(ph);
-    });
-    img.addEventListener('load', function () { bindZoom(img); });
-    var src = img.getAttribute('src');
-    if (src) {
-      var probe = new Image();
-      probe.onerror = function () {
-        if (!img.complete || img.naturalWidth === 0) {
-          img.dispatchEvent(new Event('error'));
-        }
-      };
-      probe.onload = function () {
-        if (img.complete && img.naturalWidth > 0) bindZoom(img);
-      };
-      probe.src = src;
-    }
+    setupImage(img, ph);
   });
 
   // 下载按钮统计提示（纯前端，无后端）
