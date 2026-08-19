@@ -221,7 +221,7 @@ body {
 .download-meta { list-style: none; margin: 0; padding: 0; font-size: 14px; color: var(--text-soft); }
 .download-meta li { margin: 3px 0; }
 .download-hint { text-align: center; color: var(--text-soft); font-size: 14px; margin: 28px 0 0; }
-.download-hint code, .sponsor-note code {
+.download-hint code, .support-note code {
   background: var(--bg-alt);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -230,14 +230,14 @@ body {
 }
 
 /* ===== 赞助 ===== */
-.sponsor-box {
+.support-box {
   display: flex;
   gap: 36px;
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 18px;
 }
-.sponsor-qr {
+.support-qr {
   width: 150px;
   aspect-ratio: 1080 / 1616; /* 收款码竖版比例 */
   border: 2px dashed var(--border);
@@ -258,7 +258,7 @@ body {
   text-align: center;
   padding: 12px;
 }
-.sponsor-note { text-align: center; color: var(--text-soft); font-size: 13px; }
+.support-note { text-align: center; color: var(--text-soft); font-size: 13px; }
 
 /* ===== 图片灯箱（点击放大） ===== */
 .lightbox {

@@ -87,7 +87,7 @@
     );
   });
 
-  // 赞助：微信 / 支付宝赞赏码（img/sponsor-*.png），未上传时显示占位；点击可放大
+  // 赞助：微信 / 支付宝赞赏码（img/pic-*.png），未上传时显示占位；点击可放大
   document.querySelectorAll('.qr-img').forEach(function (img) {
     var ph = document.createElement('div');
     ph.className = 'shot-placeholder';
