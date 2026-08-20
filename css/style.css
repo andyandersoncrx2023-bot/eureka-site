@@ -64,6 +64,9 @@ body {
 .nav-links a:hover { color: var(--text); }
 @media (max-width: 640px) {
   .nav-links { display: none; }
+  .hero-actions, .download-btns { flex-direction: column; width: 100%; }
+  .hero-actions .btn, .download-btns .btn { width: 100%; }
+  .download-card { flex-direction: column; align-items: flex-start; }
 }
 
 /* ===== 按钮 ===== */
@@ -85,9 +88,31 @@ body {
   border: none;
 }
 .btn-primary:hover { background: var(--accent-strong); }
+.btn-mirror {
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 2px solid var(--accent);
+}
+.btn-mirror:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 .btn-sm { height: 34px; padding: 0 16px; font-size: 13px; }
 .btn-lg { height: 56px; padding: 0 32px; font-size: 17px; border-radius: 14px; }
 .btn-sub { font-size: 12px; font-weight: 400; opacity: 0.85; }
+
+/* 下载按钮：两个并排 */
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.download-btns {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
 
 /* ===== 首屏 ===== */
 .hero {
