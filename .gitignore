@@ -1,0 +1,3 @@
+# 安装包等大文件不从网站仓库分发，一律通过 Cloudflare R2 公开 bucket 下载。
+# （downloads/ 里的旧 exe 曾误提交进仓库，现已解跟踪；此规则避免再误提交。）
+downloads/
